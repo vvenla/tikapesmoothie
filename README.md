@@ -1,4 +1,5 @@
-# tikape-runko
+# tikapesmoothie
 
-Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
+Tietokantojen perusteet -kurssilla tehty web-sovellus, jonka avulla voi suunnitella smoothieita.
 
+![Luokkakaavio](/Dokumentaatio/SmoothieLuokkakaavio.png "Luokkakaavio")
