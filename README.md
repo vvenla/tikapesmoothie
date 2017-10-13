@@ -10,6 +10,8 @@ Tietokantojen perusteet -kurssilla tehty web-sovellus, jonka avulla voi suunnite
 
 ![Tietokantakaavio](/Dokumentaatio/SmoothieTietokantakaavio.png "Tietokantakaavio")
 
+#### Kyselyt taulujen luomiseksi
+
 	CREATE TABLE Kategoria (
 		id integer PRIMARY KEY,
 		nimi varchar(40)
