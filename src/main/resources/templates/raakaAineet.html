@@ -2,17 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Raaka-aineet</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Hei opiskelijat!</h1>
-
+        <h1>Raaka-aineet</h1>
         <ol>
-            <li th:each="opiskelija: ${opiskelijat}">
-                <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
+            <li th:each="raaka-aine : ${raaka-aineet}">
+                <span th:text="${raaka-aine}">Raaka-aine</span>
             </li>
         </ol>
+        
+        <h2>Lisää uusi raaka-aine</h2>
+        <form method="POST" action="/">
+        Raaka-aineen nimi:<br/>
+        <input type="text" name="nimi" autofocus="autofocus"/><br/>
+        <input type="submit" value="Lisää"/>
+        </form>
+
     </body>
 </html>

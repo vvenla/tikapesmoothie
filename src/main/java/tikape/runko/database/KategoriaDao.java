@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tikape.runko.database;
 
 import java.sql.Connection;
@@ -11,20 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.RaakaAine;
+import tikape.runko.domain.*;
 
-public class RaakaAineDao implements Dao<RaakaAine, Integer> {
 
+public class KategoriaDao implements Dao<Kategoria, Integer>{
     private Database database;
 
-    public RaakaAineDao(Database database) {
+    public KategoriaDao(Database database) {
         this.database = database;
     }
 
     @Override
-    public RaakaAine findOne(Integer key) throws SQLException {
+    public Kategoria findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM RaakaAine WHERE id = ?");
+        PreparedStatement stmt = 
+                connection.prepareStatement("SELECT * FROM Kategoria WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -36,7 +32,7 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
         Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
 
-        RaakaAine r = new RaakaAine(id, nimi);
+        Kategoria r = new Kategoria(id, nimi);
 
         rs.close();
         stmt.close();
@@ -46,29 +42,29 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
     }
 
     @Override
-    public List<RaakaAine> findAll() throws SQLException {
+    public List<Kategoria> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM RaakaAine");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kategoria");
 
         ResultSet rs = stmt.executeQuery();
-        List<RaakaAine> raakaAineet = new ArrayList<>();
+        List<Kategoria> kategoriat = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
 
-            raakaAineet.add(new RaakaAine(id, nimi));
+            kategoriat.add(new Kategoria(id, nimi));
         }
 
         rs.close();
         stmt.close();
         connection.close();
 
-        return raakaAineet;
+        return kategoriat;
     }
     
     @Override
-    public RaakaAine saveOrUpdate(RaakaAine object) throws SQLException {
+    public Kategoria saveOrUpdate(Kategoria object) throws SQLException {
 //        if (object.id == null) {
             return save(object);
 //        } else {
@@ -81,48 +77,47 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
         // ei toteutettu
     }
     
-    private RaakaAine save(RaakaAine raakaAine) throws SQLException {
+    private Kategoria save(Kategoria kategoria) throws SQLException {
 
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine"
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kategoria"
                 + " (nimi) VALUES (?)");
-        stmt.setString(1, raakaAine.getNimi());
+        stmt.setString(1, kategoria.getNimi());
         
 
         stmt.executeUpdate();
         stmt.close();
 
-        stmt = conn.prepareStatement("SELECT MAX(id) AS idd FROM RaakaAine"
+        stmt = conn.prepareStatement("SELECT MAX(id) AS idd FROM Kategoria"
                 + " WHERE nimi = ?");
-        stmt.setString(1, raakaAine.getNimi());
+        stmt.setString(1, kategoria.getNimi());
 
         ResultSet rs = stmt.executeQuery();
         rs.next(); // vain 1 tulos
 
-        RaakaAine t = new RaakaAine(rs.getInt("idd"), raakaAine.getNimi());
+        Kategoria r = new Kategoria(rs.getInt("idd"), kategoria.getNimi());
 
         stmt.close();
         rs.close();
 
         conn.close();
 
-        return t;
+        return r;
     }
 
-    private RaakaAine update(RaakaAine raakaAine) throws SQLException {
+    private Kategoria update(Kategoria kategoria) throws SQLException {
 
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("UPDATE RaakaAine SET"
+        PreparedStatement stmt = conn.prepareStatement("UPDATE Kategoria SET"
                 + " nimi = ? WHERE id = ?");
-        stmt.setString(1, raakaAine.getNimi());
-        stmt.setInt(2, raakaAine.getId());
+        stmt.setString(1, kategoria.getNimi());
+        stmt.setInt(2, kategoria.getId());
 
         stmt.executeUpdate();
 
         stmt.close();
         conn.close();
 
-        return raakaAine;
+        return kategoria;
     }
-
 }

@@ -4,9 +4,20 @@ public class RaakaAine {
 
     private Integer id;
     private String nimi;
+    private  Kategoria kategoria;
 
+    public RaakaAine(Integer id, String nimi, Kategoria kategoria) {
+        this.id = id;
+        this.nimi = nimi;
+        this.kategoria = kategoria;
+    }
+    
     public RaakaAine(Integer id, String nimi) {
         this.id = id;
+        this.nimi = nimi;
+    }
+    
+    public RaakaAine(String nimi) {
         this.nimi = nimi;
     }
 
@@ -25,5 +36,15 @@ public class RaakaAine {
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
+
+    public Kategoria getKategoria() {
+        return kategoria;
+    }
+
+    public void setKategoria(Kategoria kategoria) {
+        this.kategoria = kategoria;
+    }
+    
+    
 
 }

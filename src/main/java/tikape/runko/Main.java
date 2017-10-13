@@ -6,6 +6,7 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.*;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
         Database database = new Database("jdbc:sqlite:raakaAineet.db");
         database.init();
 
-        RaakaAineDao raakaAineDao = new RaakaAineDao(database);
+        RaakaAineDao raakaAineet = new RaakaAineDao(database);
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -24,14 +25,21 @@ public class Main {
 
         get("/raakaAineet", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("raakaAineet", raakaAineDao.findAll());
+            map.put("raakaAineet", raakaAineet.findAll());
 
             return new ModelAndView(map, "raakaAineet");
         }, new ThymeleafTemplateEngine());
+        
+        post("/raakaAinetet", (req, res) -> {
+            String nimi = req.queryParams("nimi");
+            raakaAineet.saveOrUpdate(new RaakaAine(nimi));
+            res.redirect("/");
+            return "";
+        });
 
         get("/raakaAineet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("raakaAine", raakaAineDao.findOne(Integer.parseInt(req.params("id"))));
+            map.put("raakaAine", raakaAineet.findOne(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "raakaAine");
         }, new ThymeleafTemplateEngine());
