@@ -41,18 +41,22 @@ public class Database {
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
         lista.add("CREATE TABLE Kategoria"
                 + " (id integer PRIMARY KEY,"
-                + " nimi varchar(40))");
+                + " nimi varchar(40));");
         lista.add("CREATE TABLE RaakaAine"
                 + " (id integer PRIMARY KEY,"
+                + " kategoriaId integer,"
                 + " nimi varchar(40),"
-                + " FOREIGN KEY kategoriaId REFERENCES Kategoria(id))");
+                + " FOREIGN KEY (kategoriaId) REFERENCES Kategoria(id));");
         lista.add("CREATE TABLE Resepti"
                 + " (id integer PRIMARY KEY,"
-                + " nimi varchar(40))");
+                + " nimi varchar(40));");
         lista.add("CREATE TABLE RaakaAineResepti"
                 + " (maara integer,"
-                + " FOREIGN KEY reseptiId REFERENCES Resepti(id),"
-                + " FOREIGN KEY raakaAineId REFERENCES RaajaAine(id))");
+                + " reseptiId integer,"
+                + " raakaAineId integer,"
+                + " FOREIGN KEY (reseptiId) REFERENCES Resepti(id),"
+                + " FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id))");
+        lista.add("INSERT INTO Resepti (nimi) VALUES ('Testiresepti');");
 
         return lista;
     }

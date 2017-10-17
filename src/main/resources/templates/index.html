@@ -9,7 +9,13 @@
     <body>
         <h1>Smoothielista</h1>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
+        <ol>
+            <li th:each="resepti : ${reseptit}">
+                <span th:text="${resepti}">Reseptin nimi</span>
+            </li>
+        </ol>
+
+        
 
         <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
     </body>
