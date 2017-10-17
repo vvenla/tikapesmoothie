@@ -19,8 +19,9 @@ Tietokantojen perusteet -kurssilla tehty web-sovellus, jonka avulla voi suunnite
 	
 	CREATE TABLE RaakaAine (
 		id integer PRIMARY KEY,
+		kategoriaId integer,
 		nimi varchar(40),
-		FOREIGN KEY kategoriaId REFERENCES Kategoria(id)
+		FOREIGN KEY (kategoriaId) REFERENCES Kategoria(id)
 	)
 	
 	CREATE TABLE Resepti (
@@ -30,6 +31,8 @@ Tietokantojen perusteet -kurssilla tehty web-sovellus, jonka avulla voi suunnite
 	
 	CREATE TABLE RaakaAineResepti (
 		maara integer,
-		FOREIGN KEY reseptiId REFERENCES Resepti(id),
-		FOREIGN KEY raakaAineId REFERENCES RaajaAine(id)
+		reseptiId integer,
+		raakaAineId integer,
+		FOREIGN KEY (reseptiId) REFERENCES Resepti(id),
+		FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id)
 	)
