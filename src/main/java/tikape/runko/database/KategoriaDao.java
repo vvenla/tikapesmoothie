@@ -74,7 +74,13 @@ public class KategoriaDao implements Dao<Kategoria, Integer>{
 
     @Override
     public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kategoria WHERE id = ?");
+        stmt.setInt(1, key);
+        
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
     }
     
     private Kategoria save(Kategoria kategoria) throws SQLException {
