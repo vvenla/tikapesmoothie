@@ -48,5 +48,12 @@ public class Main {
 //
 //            return new ModelAndView(map, "raakaAine");
 //        }, new ThymeleafTemplateEngine());
+//         get("/resepti", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("resepti", );
+//
+//            return new ModelAndView(map, "raakaAineet");
+//        }, new ThymeleafTemplateEngine());
+//        
     }
 }
