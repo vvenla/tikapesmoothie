@@ -2,10 +2,10 @@ package tikape.runko.domain;
 
 
 public class Resepti {
-    int id;
+    Integer id;
     String nimi;
 
-    public Resepti(int id, String nimi) {
+    public Resepti(Integer id, String nimi) {
         this.id = id;
         this.nimi = nimi;
     }

@@ -41,6 +41,25 @@ public class Main {
             res.redirect("/");
             return "";
         });
+        
+        Spark.get("/smoothiet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("reseptit", reseptit.findAll());
+            
+            return new ModelAndView(map, "smoothiet");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.post("/smoothiet", (req, res) -> {
+            Resepti resepti = new Resepti(null, req.queryParams("resepti"));
+            if (resepti.getNimi().isEmpty()) {
+                res.redirect("/");
+                return "";
+            }
+            System.out.println("Vastaanotettiin resepti: " + resepti.getNimi());
+            reseptit.saveOrUpdate(resepti);
+            res.redirect("/smoothiet");
+            return resepti;
+        });
 //
 //        get("/raakaAineet/:id", (req, res) -> {
 //            HashMap map = new HashMap<>();
