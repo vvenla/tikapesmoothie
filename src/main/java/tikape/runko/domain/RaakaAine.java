@@ -44,6 +44,11 @@ public class RaakaAine {
     public void setKategoria(Kategoria kategoria) {
         this.kategoria = kategoria;
     }
+
+    @Override
+    public String toString() {
+        return nimi;
+    }
     
     
 

@@ -28,18 +28,22 @@ public class Main {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-        get("/raakaAineet", (req, res) -> {
+        Spark.get("/raaka-aineet", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("raakaAineet", raakaAineet.findAll());
 
-            return new ModelAndView(map, "raakaAineet");
+            return new ModelAndView(map, "raaka-aineet");
         }, new ThymeleafTemplateEngine());
         
-        post("/raakaAineet", (req, res) -> {
-            String nimi = req.queryParams("nimi");
-            raakaAineet.saveOrUpdate(new RaakaAine(nimi));
-            res.redirect("/");
-            return "";
+        Spark.post("/raaka-aineet", (req, res) -> {
+            RaakaAine raakaAine = new RaakaAine(null, req.queryParams("raakaAine"));
+            if (raakaAine.getNimi().isEmpty()) {
+                res.redirect("/raaka-aineet");
+                return "";
+            }
+            raakaAineet.saveOrUpdate(raakaAine);
+            res.redirect("/raaka-aineet");
+            return raakaAine;
         });
         
         Spark.get("/smoothiet", (req, res) -> {
@@ -50,12 +54,12 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         Spark.post("/smoothiet", (req, res) -> {
-            Resepti resepti = new Resepti(null, req.queryParams("resepti"));
+            Resepti resepti = new Resepti(null, req.queryParams("smoothie"));
             if (resepti.getNimi().isEmpty()) {
-                res.redirect("/");
+                res.redirect("/smoothiet");
                 return "";
             }
-            System.out.println("Vastaanotettiin resepti: " + resepti.getNimi());
+//            System.out.println("Vastaanotettiin resepti: " + resepti.getNimi());
             reseptit.saveOrUpdate(resepti);
             res.redirect("/smoothiet");
             return resepti;

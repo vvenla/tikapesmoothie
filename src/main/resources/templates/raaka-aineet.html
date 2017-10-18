@@ -9,17 +9,19 @@
     <body>
         <h1>Raaka-aineet</h1>
         <ol>
-            <li th:each="raaka-aine : ${raaka-aineet}">
-                <span th:text="${raaka-aine}">Raaka-aine</span>
+            <li th:each="raakaAine : ${raakaAineet}">
+                <span th:text="${raakaAine}">Raaka-aine</span>
             </li>
         </ol>
         
-        <h2>Lisää uusi raaka-aine</h2>
-        <form method="POST" action="/">
-        Raaka-aineen nimi:<br/>
-        <input type="text" name="nimi" autofocus="autofocus"/><br/>
-        <input type="submit" value="Lisää"/>
+        
+        <form method="POST" action="/raaka-aineet">
+            Lisää raaka-aine:<br/>
+            <input type="text" name="raakaAine"/><br/>
+            <input type="submit" value="Lisää raaka-aine"/>
         </form>
+        
+      
 
     </body>
 </html>
