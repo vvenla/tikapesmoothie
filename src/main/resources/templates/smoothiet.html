@@ -11,7 +11,7 @@
 
         <ol>
             <li th:each="resepti : ${reseptit}">
-                <span th:text="${resepti}">Reseptin nimi</span>
+                <a th:href="@{~/smoothiet/{id}(id=${resepti.id})}" th:text="${resepti}">Reseptin nimi</a>
             </li>
         </ol>
 
