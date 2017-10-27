@@ -71,6 +71,13 @@ public class Main {
             res.redirect("/smoothiet");
             return resepti;
         });
+        
+        Spark.post("/smoothiet/raaka-aineet", (req, res) -> {
+            Integer reseptiId = new Integer(req.queryParams("muokattavaResepti"));
+            System.out.println(reseptiId);
+            res.redirect("/smoothiet");
+            return "";
+        });
 
         Spark.get("/smoothiet/:id", (req, res) -> {
             Integer id = new Integer(req.params("id"));

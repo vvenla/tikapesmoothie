@@ -30,14 +30,14 @@
         <strong>Lisää raaka-aineita</strong>
         <form method="POST" action="/smoothiet/raaka-aineet">
             Smoothien nimi:<br/>
-            <select>
-                <option name="muokattavaResepti" th:each="resepti : ${reseptit}" th:text="${resepti.nimi}" th:value="${resepti.id}">
+            <select name="muokattavaResepti">
+                <option th:each="resepti : ${reseptit}" th:text="${resepti.nimi}" th:value="${resepti.id}">
                 </option>
             </select>
             <br/>
             Lisättävä raaka-aine<br/>
-            <select>
-                <option name="lisattavaRaakaAine" th:each="raakaAine : ${raakaAineet}" th:text="${raakaAine.nimi}" th:value="${raakaAine.id}">
+            <select name="lisattavaRaakaAine">
+                <option th:each="raakaAine : ${raakaAineet}" th:text="${raakaAine.nimi}" th:value="${raakaAine.id}">
                 </option>
             </select>
             <br/>

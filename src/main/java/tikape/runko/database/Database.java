@@ -39,21 +39,22 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-        lista.add("CREATE TABLE Kategoria"
+        lista.add("CREATE TABLE IF NOT EXISTS Kategoria"
                 + " (id integer PRIMARY KEY,"
                 + " nimi varchar(40));");
-        lista.add("CREATE TABLE RaakaAine"
+        lista.add("CREATE TABLE IF NOT EXISTS RaakaAine"
                 + " (id integer PRIMARY KEY,"
                 + " kategoriaId integer,"
                 + " nimi varchar(40),"
                 + " FOREIGN KEY (kategoriaId) REFERENCES Kategoria(id));");
-        lista.add("CREATE TABLE Resepti"
+        lista.add("CREATE TABLE IF NOT EXISTS Resepti"
                 + " (id integer PRIMARY KEY,"
                 + " nimi varchar(40));");
-        lista.add("CREATE TABLE RaakaAineResepti"
+        lista.add("CREATE TABLE IF NOT EXISTS RaakaAineResepti"
                 + " (maara integer,"
                 + " reseptiId integer,"
                 + " raakaAineId integer,"
+                + " jarjestys integer,"
                 + " FOREIGN KEY (reseptiId) REFERENCES Resepti(id),"
                 + " FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id))");
         lista.add("INSERT INTO Resepti (nimi) VALUES ('Testiresepti');");
