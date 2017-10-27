@@ -80,14 +80,13 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         Spark.post("/kategoriat", (req, res) -> {
-//            Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
-//            String kategoriaNimi = req.queryParams("kategoria");
-            System.out.println(kategoriaNimi);
-            if (resepti.getNimi().isEmpty()) {
-                res.redirect("/smoothiet");
+            Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
+            System.out.println(kategoria.getNimi());
+            if (kategoria.getNimi().isEmpty()) {
+                res.redirect("/kategoriat");
                 return "";
             }
-            kategoriat.saveOrUpdate(new Kategoria(null, kategoriaNimi));
+            kategoriat.saveOrUpdate(kategoria);
             res.redirect("/kategoriat");
             return "";
         });
