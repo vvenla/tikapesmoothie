@@ -9,12 +9,13 @@
     <body>
         <h1>Smoothielista</h1>
 
-        <ol>
+        <ul>
             <li th:each="resepti : ${reseptit}">
-                <span th:text="${resepti}">Reseptin nimi</span>
+                <a th:href="@{~/smoothiet/{id}(id=${resepti.id})}" th:text="${resepti}"></a>
             </li>
-        </ol>
+        </ul>
 
+        <p><a href="/kategoriat">Lisää raaka-aine tyyppejä</a></p>
         
         <p><a href="/raaka-aineet">Lisää raaka-aineita</a></p>
 

@@ -4,12 +4,12 @@ public class RaakaAine {
 
     private Integer id;
     private String nimi;
-    private  Kategoria kategoria;
+    private int kategoriaId;
 
-    public RaakaAine(Integer id, String nimi, Kategoria kategoria) {
+    public RaakaAine(Integer id, String nimi, int kategoriaId) {
         this.id = id;
         this.nimi = nimi;
-        this.kategoria = kategoria;
+        this.kategoriaId = kategoriaId;
     }
     
     public RaakaAine(Integer id, String nimi) {
@@ -37,14 +37,14 @@ public class RaakaAine {
         this.nimi = nimi;
     }
 
-    public Kategoria getKategoria() {
-        return kategoria;
+    public void setKategoriaId(int kategoriaId) {
+        this.kategoriaId = kategoriaId;
     }
 
-    public void setKategoria(Kategoria kategoria) {
-        this.kategoria = kategoria;
+    public int getKategoriaId() {
+        return kategoriaId;
     }
-
+    
     @Override
     public String toString() {
         return nimi;

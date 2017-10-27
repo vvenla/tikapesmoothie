@@ -9,7 +9,9 @@
         <h1  th:text="${resepti.nimi}"></h1>
 
         <ul>
-            <li th:each="raakaAine : ${raakaAineet}"></li>
+            <li th:each="raakaAine : ${raakaAineet}">
+                <span th:text="${raakaAine.nimi}"></span>
+            </li>
         </ul>
        <br />
        <a href="/">Smoothielistaukseen</a>

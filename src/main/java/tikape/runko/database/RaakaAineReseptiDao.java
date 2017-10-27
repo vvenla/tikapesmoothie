@@ -27,29 +27,36 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
         ResultSet rs = stmt.executeQuery();
         while(rs.next()) {
             raakaAineReseptit.add(new RaakaAineResepti(
-                rs.getInt("id"), rs.getInt("reseptiId"), rs.getInt("raakaAineId"), rs.getString("maara")));
+                rs.getInt("reseptiId"), rs.getInt("raakaAineId"), rs.getString("maara")));
         }
         return raakaAineReseptit;
     }
 
     @Override
     public RaakaAineResepti findOne(Integer key) throws SQLException {
+        //RaakaAineResepti ei sisällä id:tä 
+        //käytä funktiota findOne(reseptiId, raakaAineId)
+        return null;
+    }
+    
+    public RaakaAineResepti findOne(Integer reseptiId, Integer raakaAineId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = 
-                connection.prepareStatement("SELECT * FROM RaakaAineResepti WHERE id = ?");
-        stmt.setObject(1, key);
+                connection.prepareStatement("SELECT * FROM RaakaAineResepti "
+                        + "WHERE reseptiId = ? "
+                        + "AND raakaAineId = ?");
+        stmt.setObject(1, reseptiId);
+        stmt.setObject(1, raakaAineId);
 
         ResultSet rs = stmt.executeQuery();
         if (!rs.next()) {
             return null;
         }
 
-        Integer id = rs.getInt("id");
-        Integer reseptiId = rs.getInt("reseptiId");
-        Integer raakaAineId = rs.getInt("raakaAineId");
         String maara = rs.getString("maara");
 
-        RaakaAineResepti r = new RaakaAineResepti(id, reseptiId, raakaAineId, maara);
+        RaakaAineResepti r = new RaakaAineResepti(
+                reseptiId, raakaAineId, maara);
 
         rs.close();
         stmt.close();
@@ -68,12 +75,11 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
         ResultSet rs = stmt.executeQuery();
         List<RaakaAineResepti> raakaAineReseptit = new ArrayList<>();
         while (rs.next()) {
-            Integer id = rs.getInt("id");
             Integer reseptiId = rs.getInt("reseptiId");
             Integer raakaAineId = rs.getInt("raakaAineId");
             String maara = rs.getString("maara");
 
-            raakaAineReseptit.add(new RaakaAineResepti(id, reseptiId, raakaAineId, maara));
+            raakaAineReseptit.add(new RaakaAineResepti(reseptiId, raakaAineId, maara));
         }
 
         rs.close();
@@ -85,20 +91,26 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
     
     @Override
     public RaakaAineResepti saveOrUpdate(RaakaAineResepti object) throws SQLException {
-//        if (object.id == null) {
+        if (findOne(object.getResptiId(), object.getRaakaAineId()) == null) {
             return save(object);
-//        } else {
-//            return update(object);
-//        }
+        } else {
+            return update(object);
+        }
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
         // ei toteutettu
+    }
+    
+    public void delete(Integer reseptiId, Integer raakaAineId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "DELETE FROM RaakaAineResepti WHERE id = ?");
-        stmt.setInt(1, key);
+                "DELETE FROM RaakaAineResepti "
+                        + "WHERE reseptiId = ? "
+                        + "AND raakaAineId = ?");
+        stmt.setInt(1, reseptiId);
+        stmt.setInt(2, raakaAineId);
         
         stmt.executeUpdate();
         stmt.close();
@@ -118,36 +130,22 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
         stmt.executeUpdate();
         stmt.close();
 
-        stmt = conn.prepareStatement("SELECT MAX(id) AS idd FROM RaakaAineResepti"
-                + " WHERE reseptiId=?"
-                + " AND raakaAineId=?");
-        stmt.setInt(1, raakaAineResepti.getResptiId());
-        stmt.setInt(2, raakaAineResepti.getRaakaAineId());
-
-        ResultSet rs = stmt.executeQuery();
-        rs.next(); // vain 1 tulos
-
-        RaakaAineResepti r = new RaakaAineResepti(rs.getInt("idd"), raakaAineResepti.getResptiId(), raakaAineResepti.getRaakaAineId(), raakaAineResepti.getMaara());
-
-        stmt.close();
-        rs.close();
-
         conn.close();
 
-        return r;
+        return raakaAineResepti;
     }
 
     private RaakaAineResepti update(RaakaAineResepti raakaAineResepti) throws SQLException {
 
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("UPDATE RaakaAineResepti SET"
-                + " reseptiId=?, raakaAineId=?, maara=?"
-                + " WHERE id = ?");
-        stmt.setInt(1, raakaAineResepti.getResptiId());
-        stmt.setInt(2, raakaAineResepti.getRaakaAineId());
-        stmt.setString(3, raakaAineResepti.getMaara());;
-        stmt.setInt(4, raakaAineResepti.getId());
-
+        PreparedStatement stmt = conn.prepareStatement("UPDATE RaakaAineResepti "
+                + "SET maara=?"
+                + " WHERE reseptiId=?"
+                + " AND raakaAineId=?");
+        stmt.setString(1, raakaAineResepti.getMaara());
+        stmt.setInt(2, raakaAineResepti.getResptiId());
+        stmt.setInt(3, raakaAineResepti.getRaakaAineId());
+        
         stmt.executeUpdate();
 
         stmt.close();

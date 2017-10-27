@@ -2,23 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     
     <head>
-        <title>TODO supply a title</title>
+        <title>Smoothiet</title>
         <meta charset="utf-8" />
 
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Smoothiet</h1>
 
-        <ol>
+        <ul>
             <li th:each="resepti : ${reseptit}">
-                <span th:text="${resepti}">Reseptin nimi</span>
+                <a th:href="@{~/smoothiet/{id}(id=${resepti.id})}" th:text="${resepti}"></a>
+                <a th:href="@{~/smoothiet/poista/{id}(id=${resepti.id})}">(poista)</a>
             </li>
-        </ol>
+        </ul>
 
         <form method="POST" action="/smoothiet">
             Lisää smoothie:<br/>
-            <input type="text" name="smoothie"/><br/>
+            <input type="text" name="smoothie" autofocus="autofocus"/><br/>
             <input type="submit" value="Lisää smoothie"/>
+        </form>
+        
+        <h2>Lisää raaka-aineita</h2>
+        <form method="POST" action="/raakaAineResepti">
+            <select name="smoothieId">
+                <option th:each="resepti : ${reseptit}" th:value="${resepti.id}" th:text="${resepti.nimi}">
+                    Smoothie
+                </option>
+            </select> <br/>
+            <select name="raakaAineId">
+                <option th:each="raakaAine : ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                    Raaka-aine
+                </option>
+            </select> <br/>
+            Paljonko:
+            <input type="text" name="maara"/>
+            <input type="submit" value="Lisää" />
         </form>
 
     </body>
