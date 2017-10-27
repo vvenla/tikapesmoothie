@@ -64,6 +64,36 @@ public class Main {
             res.redirect("/smoothiet");
             return resepti;
         });
+        
+        Spark.get("/smoothiet/:id", (req, res) -> {
+            Integer id = new Integer(req.params("id"));
+            Resepti resepti = reseptit.findOne(id);
+            HashMap map = new HashMap<>();
+            map.put("resepti", resepti);
+            return new ModelAndView(map, "resepti");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/kategoriat", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("kategoriat", kategoria.findAll());
+            return new ModelAndView(map, "kategoriat");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.post("/kategoriat", (req, res) -> {
+            String kategoriaNimi = req.queryParams("kategoria");
+            System.out.println(kategoriaNimi);
+            kategoria.saveOrUpdate(new Kategoria(null, kategoriaNimi));
+            res.redirect("/kategoriat");
+            return "";
+        });
+        
+        Spark.post("/kategoriat/poista/:id", (req, res) -> {
+            Integer id = new Integer(req.params(":id"));
+            System.out.println(id);
+            kategoria.delete(id);
+            res.redirect("/kategoriat");
+            return "";
+        });
 //
 //        get("/raakaAineet/:id", (req, res) -> {
 //            HashMap map = new HashMap<>();

@@ -2,10 +2,10 @@ package tikape.runko.domain;
 
 
 public class Kategoria {
-    int id;
+    Integer id;
     String nimi;
 
-    public Kategoria(int id, String nimi) {
+    public Kategoria(Integer id, String nimi) {
         this.id = id;
         this.nimi = nimi;
     }
@@ -14,7 +14,7 @@ public class Kategoria {
         this.nimi = nimi;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
