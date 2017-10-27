@@ -2,19 +2,19 @@ package tikape.runko.domain;
 
 
 public class RaakaAineResepti {
-    private int id;
-    private int resptiId;
-    private int raakaAineId;
+    private Integer id;
+    private Integer resptiId;
+    private Integer raakaAineId;
     private String maara;
 
-    public RaakaAineResepti(int id, int resptiId, int raakaAineId, String maara) {
+    public RaakaAineResepti(Integer id, Integer resptiId, Integer raakaAineId, String maara) {
         this.id = id;
         this.resptiId = resptiId;
         this.raakaAineId = raakaAineId;
         this.maara = maara;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -22,11 +22,11 @@ public class RaakaAineResepti {
         return maara;
     }
 
-    public int getResptiId() {
+    public Integer getResptiId() {
         return resptiId;
     }
 
-    public int getRaakaAineId() {
+    public Integer getRaakaAineId() {
         return raakaAineId;
     }
 }

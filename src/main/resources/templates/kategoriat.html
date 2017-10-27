@@ -12,7 +12,7 @@
             <li th:each="kategoria : ${kategoriat}">
                 <span th:text="${kategoria.nimi}"></span>
                 <form th:method="POST" th:action="@{~/kategoriat/poista/{id}(id=${kategoria.id})}">
-                    <input type="submit" value="(poista)" />
+                    <input type="submit" value="poista" />
                 </form>
             </li>
         </ul>

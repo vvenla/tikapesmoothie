@@ -85,11 +85,11 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
     
     @Override
     public RaakaAineResepti saveOrUpdate(RaakaAineResepti object) throws SQLException {
-//        if (object.id == null) {
+        if (object.getId() == null) {
             return save(object);
-//        } else {
-//            return update(object);
-//        }
+        } else {
+            return update(object);
+        }
     }
 
     @Override
