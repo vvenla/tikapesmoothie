@@ -34,7 +34,7 @@ public class Main {
 
             return new ModelAndView(map, "raaka-aineet");
         }, new ThymeleafTemplateEngine());
-        
+
         Spark.post("/raaka-aineet", (req, res) -> {
             RaakaAine raakaAine = new RaakaAine(null, req.queryParams("raakaAine"));
             if (raakaAine.getNimi().isEmpty()) {
@@ -45,21 +45,21 @@ public class Main {
             res.redirect("/raaka-aineet");
             return raakaAine;
         });
-        
+
         Spark.post("/raaka-aineet/poista/:id", (req, res) -> {
             Integer id = new Integer(req.params(":id"));
             raakaAineet.delete(id);
             res.redirect("/raaka-aineet");
             return "";
         });
-        
+
         Spark.get("/smoothiet", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("reseptit", reseptit.findAll());
             map.put("raakaAineet", raakaAineet.findAll());
             return new ModelAndView(map, "smoothiet");
         }, new ThymeleafTemplateEngine());
-        
+
         Spark.post("/smoothiet", (req, res) -> {
             Resepti resepti = new Resepti(null, req.queryParams("smoothie"));
             if (resepti.getNimi().isEmpty()) {
@@ -71,7 +71,7 @@ public class Main {
             res.redirect("/smoothiet");
             return resepti;
         });
-        
+
         Spark.get("/smoothiet/:id", (req, res) -> {
             Integer id = new Integer(req.params("id"));
             Resepti resepti = reseptit.findOne(id);
@@ -79,51 +79,41 @@ public class Main {
             map.put("resepti", resepti);
             return new ModelAndView(map, "resepti");
         }, new ThymeleafTemplateEngine());
-        
+
         Spark.post("/smoothiet/poista/:id", (req, res) -> {
             Integer id = new Integer(req.params(":id"));
             reseptit.delete(id);
             res.redirect("/smoothiet");
             return "";
         });
-        
+
         Spark.get("/kategoriat", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("kategoriat", kategoriat.findAll());
             return new ModelAndView(map, "kategoriat");
         }, new ThymeleafTemplateEngine());
-        
+
         Spark.post("/kategoriat", (req, res) -> {
             Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
-            String kategoriaNimi = req.queryParams("kategoria");
-            if (kategoriaNimi == null || kategoriaNimi.equals("")) {
+            System.out.println(kategoria.getNimi());
+            if (kategoria.getNimi().isEmpty()) {
+                String kategoriaNimi = req.queryParams("kategoria");
+                if (kategoriaNimi == null || kategoriaNimi.equals("")) {
+                    res.redirect("/kategoriat");
+                    return "";
+                }
+            }
+                kategoriat.saveOrUpdate(kategoria);
                 res.redirect("/kategoriat");
                 return "";
-            }
-            kategoriat.saveOrUpdate(new Kategoria(null, kategoriaNimi));
-            res.redirect("/kategoriat");
-            return "";
-        });
-        
-        Spark.post("/kategoriat/poista/:id", (req, res) -> {
-            Integer id = new Integer(req.params(":id"));
-            kategoriat.delete(id);
-            res.redirect("/kategoriat");
-            return "";
-        });
-//
-//        get("/raakaAineet/:id", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("raakaAine", raakaAineet.findOne(Integer.parseInt(req.params("id"))));
-//
-//            return new ModelAndView(map, "raakaAine");
-//        }, new ThymeleafTemplateEngine());
-//         get("/resepti", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("resepti", );
-//
-//            return new ModelAndView(map, "raakaAineet");
-//        }, new ThymeleafTemplateEngine());
-//        
+            });
+
+            Spark.post("/kategoriat/poista/:id", (req, res) -> {
+                Integer id = new Integer(req.params(":id"));
+                kategoriat.delete(id);
+                res.redirect("/kategoriat");
+                return "";
+            });
+
+        }
     }
-}
