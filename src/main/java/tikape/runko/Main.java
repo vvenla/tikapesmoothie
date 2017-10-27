@@ -19,7 +19,7 @@ public class Main {
 
         RaakaAineDao raakaAineet = new RaakaAineDao(database);
         ReseptiDao reseptit = new ReseptiDao(database);
-        KategoriaDao kategoria = new KategoriaDao(database);
+        KategoriaDao kategoriat = new KategoriaDao(database);
 
         Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -75,14 +75,19 @@ public class Main {
         
         Spark.get("/kategoriat", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("kategoriat", kategoria.findAll());
+            map.put("kategoriat", kategoriat.findAll());
             return new ModelAndView(map, "kategoriat");
         }, new ThymeleafTemplateEngine());
         
         Spark.post("/kategoriat", (req, res) -> {
-            String kategoriaNimi = req.queryParams("kategoria");
+//            Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
+//            String kategoriaNimi = req.queryParams("kategoria");
             System.out.println(kategoriaNimi);
-            kategoria.saveOrUpdate(new Kategoria(null, kategoriaNimi));
+            if (resepti.getNimi().isEmpty()) {
+                res.redirect("/smoothiet");
+                return "";
+            }
+            kategoriat.saveOrUpdate(new Kategoria(null, kategoriaNimi));
             res.redirect("/kategoriat");
             return "";
         });
@@ -90,7 +95,7 @@ public class Main {
         Spark.post("/kategoriat/poista/:id", (req, res) -> {
             Integer id = new Integer(req.params(":id"));
             System.out.println(id);
-            kategoria.delete(id);
+            kategoriat.delete(id);
             res.redirect("/kategoriat");
             return "";
         });
