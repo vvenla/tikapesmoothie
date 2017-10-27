@@ -26,8 +26,10 @@
         <br />
         <a href="/">Smoothielistaukseen</a>
 
+        <p>
+            <strong>Lisää raaka-aineita</strong>    
+        </p>
         
-        <strong>Lisää raaka-aineita</strong>
         <form method="POST" action="/smoothiet/raaka-aineet">
             Smoothien nimi:<br/>
             <select name="muokattavaResepti">
@@ -41,11 +43,7 @@
                 </option>
             </select>
             <br/>
-            <input name="jarjestys" type="text" placeholder="Järjestys" />
-            <br/>
             <input name="maara" type="text" placeholder="Määrä"/>
-            <br/>
-            <input name="ohje" type="text" placeholder="Ohje" />
             <br/>
             <input type="submit" value="Lisää" />
         </form>

@@ -1,15 +1,14 @@
 package tikape.runko.domain;
 
-
 public class RaakaAineResepti {
     private Integer id;
-    private Integer resptiId;
+    private Integer reseptiId;
     private Integer raakaAineId;
     private String maara;
 
-    public RaakaAineResepti(Integer id, Integer resptiId, Integer raakaAineId, String maara) {
+    public RaakaAineResepti(Integer id, Integer reseptiId, Integer raakaAineId, String maara) {
         this.id = id;
-        this.resptiId = resptiId;
+        this.reseptiId = reseptiId;
         this.raakaAineId = raakaAineId;
         this.maara = maara;
     }
@@ -23,7 +22,7 @@ public class RaakaAineResepti {
     }
 
     public Integer getResptiId() {
-        return resptiId;
+        return reseptiId;
     }
 
     public Integer getRaakaAineId() {

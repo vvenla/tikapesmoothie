@@ -8,6 +8,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.KategoriaDao;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.database.RaakaAineReseptiDao;
 import tikape.runko.database.ReseptiDao;
 import tikape.runko.domain.*;
 
@@ -20,6 +21,7 @@ public class Main {
         RaakaAineDao raakaAineet = new RaakaAineDao(database);
         ReseptiDao reseptit = new ReseptiDao(database);
         KategoriaDao kategoriat = new KategoriaDao(database);
+        RaakaAineReseptiDao raakaAineReseptit = new RaakaAineReseptiDao(database);
 
         Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -74,7 +76,15 @@ public class Main {
         
         Spark.post("/smoothiet/raaka-aineet", (req, res) -> {
             Integer reseptiId = new Integer(req.queryParams("muokattavaResepti"));
-            System.out.println(reseptiId);
+            Integer raakaAineId = new Integer(req.queryParams("lisattavaRaakaAine"));
+            String maara = req.queryParams("maara");
+            RaakaAineResepti raakaAineResepti = new RaakaAineResepti(
+                    null,
+                    reseptiId,
+                    raakaAineId,
+                    maara
+            );
+            raakaAineReseptit.saveOrUpdate(raakaAineResepti);
             res.redirect("/smoothiet");
             return "";
         });

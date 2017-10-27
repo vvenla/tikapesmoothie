@@ -51,13 +51,13 @@ public class Database {
                 + " (id integer PRIMARY KEY,"
                 + " nimi varchar(40));");
         lista.add("CREATE TABLE IF NOT EXISTS RaakaAineResepti"
-                + " (maara integer,"
+                + " (id integer PRIMARY KEY,"
+                + " maara integer,"
                 + " reseptiId integer,"
                 + " raakaAineId integer,"
-                + " jarjestys integer,"
                 + " FOREIGN KEY (reseptiId) REFERENCES Resepti(id),"
                 + " FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id))");
-        lista.add("INSERT INTO Resepti (nimi) VALUES ('Testiresepti');");
+        //lista.add("INSERT INTO Resepti (nimi) VALUES ('Testiresepti');");
 
         return lista;
     }
