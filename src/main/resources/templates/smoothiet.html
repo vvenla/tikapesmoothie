@@ -12,6 +12,9 @@
         <ol>
             <li th:each="resepti : ${reseptit}">
                 <a th:href="@{~/smoothiet/{id}(id=${resepti.id})}" th:text="${resepti}">Reseptin nimi</a>
+                <form th:method="POST" th:action="@{~/smoothiet/poista/{id}(id=${resepti.id})}">
+                    <input type="submit" value="poista" />
+                </form>
             </li>
         </ol>
 
@@ -20,6 +23,15 @@
             <input type="text" name="smoothie"/><br/>
             <input type="submit" value="Lisää smoothie"/>
         </form>
-
+        
+        <strong>Lisää raaka-aineita</strong>
+        <form method="POST" action="/smoothiet/raaka-aineet">
+            Smoothien nimi:
+            <select>
+                <option th:each="resepti : ${reseptit}" th:text="${resepti.nimi}">
+                    
+                </option>
+            </select>
+        </form>
     </body>
 </html>

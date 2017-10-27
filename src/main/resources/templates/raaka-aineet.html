@@ -11,6 +11,9 @@
         <ol>
             <li th:each="raakaAine : ${raakaAineet}">
                 <span th:text="${raakaAine}">Raaka-aine</span>
+                <form th:method="POST" th:action="@{~/raaka-aineet/poista/{id}(id=${raakaAine.id})}">
+                    <input type="submit" value="poista" />
+                </form>
             </li>
         </ol>
         
@@ -21,6 +24,7 @@
             <input type="submit" value="Lisää raaka-aine"/>
         </form>
         
+        <p><a href="/kategoriat">Raaka-aineiden kategoriat</a></p>
       
 
     </body>

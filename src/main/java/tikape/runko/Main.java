@@ -14,7 +14,7 @@ import tikape.runko.domain.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:db/raakaAineet.db");
+        Database database = new Database("jdbc:sqlite:raakaAineet.db");
         database.init();
 
         RaakaAineDao raakaAineet = new RaakaAineDao(database);
@@ -46,6 +46,13 @@ public class Main {
             return raakaAine;
         });
         
+        Spark.post("/raaka-aineet/poista/:id", (req, res) -> {
+            Integer id = new Integer(req.params(":id"));
+            raakaAineet.delete(id);
+            res.redirect("/raaka-aineet");
+            return "";
+        });
+        
         Spark.get("/smoothiet", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("reseptit", reseptit.findAll());
@@ -73,6 +80,13 @@ public class Main {
             return new ModelAndView(map, "resepti");
         }, new ThymeleafTemplateEngine());
         
+        Spark.post("/smoothiet/poista/:id", (req, res) -> {
+            Integer id = new Integer(req.params(":id"));
+            reseptit.delete(id);
+            res.redirect("/smoothiet");
+            return "";
+        });
+        
         Spark.get("/kategoriat", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("kategoriat", kategoriat.findAll());
@@ -80,11 +94,10 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         Spark.post("/kategoriat", (req, res) -> {
-//            Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
-//            String kategoriaNimi = req.queryParams("kategoria");
-            System.out.println(kategoriaNimi);
-            if (resepti.getNimi().isEmpty()) {
-                res.redirect("/smoothiet");
+            Kategoria kategoria = new Kategoria(null, req.queryParams("kategoria"));
+            String kategoriaNimi = req.queryParams("kategoria");
+            if (kategoriaNimi == null || kategoriaNimi.equals("")) {
+                res.redirect("/kategoriat");
                 return "";
             }
             kategoriat.saveOrUpdate(new Kategoria(null, kategoriaNimi));
@@ -94,7 +107,6 @@ public class Main {
         
         Spark.post("/kategoriat/poista/:id", (req, res) -> {
             Integer id = new Integer(req.params(":id"));
-            System.out.println(id);
             kategoriat.delete(id);
             res.redirect("/kategoriat");
             return "";
