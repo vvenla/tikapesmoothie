@@ -2,19 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title th:text="${resepti.nimi"></title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Hei <span th:text="${resepti.nimi}">opiskelija</span>!</h1> 
+        <h1><span th:text="${resepti.nimi}">resepti</span>!</h1> 
 
         <ol>
             <li th:each="raakaAine : ${resepti}">
-                <span th:text="${raakaAine}">Raaka-aineen nimi</span>
+                <th:block th:each="maara : ${maarat}">
+                <tr th:if="${maara.resepti_id == resepti.id">
+                <td th:text="${raakaAine} ${maara.maara}"></td>
+                </tr>
+                </th:block>
             </li>
         </ol>
-        
-        <p>Olet saapunut opiskelijan <span th:text="${opiskelija.nimi}">opiskelija</span> henkilökohtaiselle sivulle.</p>
     </body>
 </html>

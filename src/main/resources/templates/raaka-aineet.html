@@ -17,12 +17,13 @@
         <br />
         <h2>Lisää raaka-aine</h2>
         <form method="POST" action="/raaka-aineet">
+            Tyyppi <br />
             <select name="kategoriaId">
                 <option th:each="kategoria : ${kategoriat}" th:value="${kategoria.id}" th:text="${kategoria.nimi}">
                     Tyyppi
                 </option>
             </select>
-                Nimi:<br/>
+            <br />Nimi:<br/>
             <input type="text" name="raakaAine" autofocus="autofocus"/><br/>
             <input type="submit" value="Lisää raaka-aine"/>
         </form>

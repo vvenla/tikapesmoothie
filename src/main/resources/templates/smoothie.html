@@ -12,9 +12,10 @@
             <li th:each="raakaAine : ${raakaAineet}">
                 <!--<span th:text="${raakaAine.nimi}"></span> -->
                 <th:block th:each="maara : ${maarat}">
-                <tr th:if="${maara.raakaAineId == raakaAine.id">
-                <!--<td th:text="${raakaAine} ${maara.maara}"></td>-->
-                </tr>
+                   <tr th:if="${maara.raakaAineId} == ${raakaAine.id}">
+                        <td th:text="${raakaAine.nimi}"></td>
+                        <td th:text="${maara.maara}"></td>
+                    </tr>
                 </th:block>
             </li>
         </ul>

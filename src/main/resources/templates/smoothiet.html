@@ -24,17 +24,19 @@
         
         <h2>Lisää raaka-aineita</h2>
         <form method="POST" action="/raakaAineResepti">
+            Smoothie: <br />
             <select name="smoothieId">
                 <option th:each="resepti : ${reseptit}" th:value="${resepti.id}" th:text="${resepti.nimi}">
                     Smoothie
                 </option>
             </select> <br/>
+            Raaka-aine: <br />
             <select name="raakaAineId">
                 <option th:each="raakaAine : ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
                     Raaka-aine
                 </option>
             </select> <br/>
-            Paljonko:
+            Paljonko: <br />
             <input type="text" name="maara"/>
             <input type="submit" value="Lisää" />
         </form>
