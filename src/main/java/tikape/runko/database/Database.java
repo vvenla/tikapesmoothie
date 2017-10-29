@@ -57,6 +57,13 @@ public class Database {
                 + " raakaAineId integer,"
                 + " FOREIGN KEY (reseptiId) REFERENCES Resepti(id),"
                 + " FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id))");
+        lista.add("CREATE TABLE RaakaAineResepti (\n"
+                + "maara varchar(50),\n"
+                + "reseptiId integer,\n"
+                + "raakaAineId integer,\n"
+                + "jarjestys integer,\n"
+                + "FOREIGN KEY (reseptiId) REFERENCES Resepti(id),\n"
+                + "FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id));");
         //lista.add("INSERT INTO Resepti (nimi) VALUES ('Testiresepti');");
 
         return lista;

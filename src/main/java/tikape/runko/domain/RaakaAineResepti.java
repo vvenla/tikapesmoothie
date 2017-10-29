@@ -5,11 +5,13 @@ public class RaakaAineResepti {
     private int resptiId;
     private int raakaAineId;
     private String maara;
+    private int jarjestys;
     
-    public RaakaAineResepti(int resptiId, int raakaAineId, String maara) {
+    public RaakaAineResepti(int resptiId, int raakaAineId, String maara, int jarjestys) {
         this.resptiId = resptiId;
         this.raakaAineId = raakaAineId;
         this.maara = maara;
+        this.jarjestys = jarjestys;
     }
 
     public String getMaara() {
@@ -22,5 +24,9 @@ public class RaakaAineResepti {
 
     public int getRaakaAineId() {
         return raakaAineId;
+    }
+
+    public int getJarjestys() {
+        return jarjestys;
     }
 }

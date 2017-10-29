@@ -27,7 +27,7 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
         ResultSet rs = stmt.executeQuery();
         while(rs.next()) {
             raakaAineReseptit.add(new RaakaAineResepti(
-                rs.getInt("reseptiId"), rs.getInt("raakaAineId"), rs.getString("maara")));
+                rs.getInt("reseptiId"), rs.getInt("raakaAineId"), rs.getString("maara"), rs.getInt("jarjestys")));
         }
         return raakaAineReseptit;
     }
@@ -54,9 +54,10 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
         }
 
         String maara = rs.getString("maara");
+        int jarjestys = rs.getInt("jarjestys");
 
         RaakaAineResepti r = new RaakaAineResepti(
-                reseptiId, raakaAineId, maara);
+                reseptiId, raakaAineId, maara, jarjestys);
 
         rs.close();
         stmt.close();
@@ -78,8 +79,9 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
             Integer reseptiId = rs.getInt("reseptiId");
             Integer raakaAineId = rs.getInt("raakaAineId");
             String maara = rs.getString("maara");
+            int jarjestys = rs.getInt("jarjestys");
 
-            raakaAineReseptit.add(new RaakaAineResepti(reseptiId, raakaAineId, maara));
+            raakaAineReseptit.add(new RaakaAineResepti(reseptiId, raakaAineId, maara, jarjestys));
         }
 
         rs.close();
@@ -121,10 +123,11 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
 
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAineResepti"
-                + " (reseptiId, raakaAineId, maara) VALUES (?, ?, ?)");
+                + " (reseptiId, raakaAineId, maara, jarjestys) VALUES (?, ?, ?, ?)");
         stmt.setInt(1, raakaAineResepti.getResptiId());
         stmt.setInt(2, raakaAineResepti.getRaakaAineId());
         stmt.setString(3, raakaAineResepti.getMaara());
+        stmt.setInt(4, raakaAineResepti.getJarjestys());
         
 
         stmt.executeUpdate();
@@ -139,12 +142,13 @@ public class RaakaAineReseptiDao implements Dao<RaakaAineResepti, Integer>{
 
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("UPDATE RaakaAineResepti "
-                + "SET maara=?"
+                + "SET maara=?, jarjestys=?"
                 + " WHERE reseptiId=?"
                 + " AND raakaAineId=?");
         stmt.setString(1, raakaAineResepti.getMaara());
-        stmt.setInt(2, raakaAineResepti.getResptiId());
-        stmt.setInt(3, raakaAineResepti.getRaakaAineId());
+        stmt.setInt(2, raakaAineResepti.getJarjestys());
+        stmt.setInt(3, raakaAineResepti.getResptiId());
+        stmt.setInt(4, raakaAineResepti.getRaakaAineId());
         
         stmt.executeUpdate();
 

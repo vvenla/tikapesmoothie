@@ -87,7 +87,6 @@ public class Main {
             return new ModelAndView(map, "smoothie");
         }, new ThymeleafTemplateEngine());
 
-
         Spark.post("/smoothiet/poista/:id", (req, res) -> {
             Integer id = new Integer(req.params(":id"));
             reseptit.delete(id);
@@ -124,8 +123,16 @@ public class Main {
         Spark.post("/raakaAineResepti", (req, res) -> {
             int smoothieId = Integer.parseInt(req.queryParams("smoothieId"));
             int raakaAineId = Integer.parseInt(req.queryParams("raakaAineId"));
+
+            int jarjestys;
+            try {
+                jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
+            } catch (NumberFormatException e) {
+                jarjestys = 1;
+            }
             RaakaAineResepti raakaAineResepti
-                    = new RaakaAineResepti(smoothieId, raakaAineId, req.queryParams("maara"));
+                    = new RaakaAineResepti(smoothieId, raakaAineId, req.queryParams("maara"), jarjestys);
+
             if (raakaAineResepti.getMaara().isEmpty()) {
                 res.redirect("/smoothiet");
                 return "";
