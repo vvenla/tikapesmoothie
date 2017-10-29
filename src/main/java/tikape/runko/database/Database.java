@@ -50,14 +50,7 @@ public class Database {
         lista.add("CREATE TABLE IF NOT EXISTS Resepti"
                 + " (id integer PRIMARY KEY,"
                 + " nimi varchar(40));");
-        lista.add("CREATE TABLE IF NOT EXISTS RaakaAineResepti"
-                + " (id integer PRIMARY KEY,"
-                + " maara integer,"
-                + " reseptiId integer,"
-                + " raakaAineId integer,"
-                + " FOREIGN KEY (reseptiId) REFERENCES Resepti(id),"
-                + " FOREIGN KEY (raakaAineId) REFERENCES RaakaAine(id))");
-        lista.add("CREATE TABLE RaakaAineResepti (\n"
+        lista.add("CREATE TABLE IF NOT EXISTS RaakaAineResepti (\n"
                 + "maara varchar(50),\n"
                 + "reseptiId integer,\n"
                 + "raakaAineId integer,\n"
