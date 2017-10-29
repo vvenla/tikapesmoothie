@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    
+
     <head>
         <title>Smoothiet</title>
         <meta charset="utf-8" />
@@ -12,7 +12,9 @@
         <ul>
             <li th:each="resepti : ${reseptit}">
                 <a th:href="@{~/smoothiet/{id}(id=${resepti.id})}" th:text="${resepti}"></a>
-                <a th:href="@{~/smoothiet/poista/{id}(id=${resepti.id})}">(poista)</a>
+                <form th:method="POST" th:action="@{~/smoothiet/poista/{id}(id=${resepti.id})}">
+                    <input type="submit" value="poista" />
+                </form>
             </li>
         </ul>
 
@@ -21,7 +23,7 @@
             <input type="text" name="smoothie" autofocus="autofocus"/><br/>
             <input type="submit" value="Lisää smoothie"/>
         </form>
-        
+
         <h2>Lisää raaka-aineita</h2>
         <form method="POST" action="/raakaAineResepti">
             Smoothie: <br />
