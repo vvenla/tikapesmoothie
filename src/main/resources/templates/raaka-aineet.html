@@ -11,7 +11,11 @@
         <ul>
             <li th:each="raakaAine : ${raakaAineet}">
                 <span th:text="${raakaAine}"></span>
-                <a th:href="@{~/raaka-aine/poista/{id}(id=${raakaAine.id})}">(poista)</a>
+
+                <form th:method="POST" th:action="@{~/raaka-aineet/poista/{id}(id=${raakaAine.id})}">
+                    <input type="submit" value="poista" />
+                </form>
+
             </li>
         </ul>
         <br />
