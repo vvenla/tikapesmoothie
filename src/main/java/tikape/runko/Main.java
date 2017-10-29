@@ -112,13 +112,19 @@ public class Main {
             return kategoria;
         });
 
-        Spark.get("/kategoria/poista/:id", (req, res) -> {
-            int kategoriaId = Integer.parseInt(req.params("id"));
-            kategoriat.delete(kategoriaId);
-
+        Spark.post("/kategoriat/poista/:id", (req, res) -> {
+            Integer id = new Integer(req.params(":id"));
+            kategoriat.delete(id);
             res.redirect("/kategoriat");
-            return null;
+            return "";
         });
+//        Spark.get("/kategoria/poista/:id", (req, res) -> {
+//            int kategoriaId = Integer.parseInt(req.params("id"));
+//            kategoriat.delete(kategoriaId);
+//
+//            res.redirect("/kategoriat");
+//            return null;
+//        });
 
         Spark.post("/raakaAineResepti", (req, res) -> {
             int smoothieId = Integer.parseInt(req.queryParams("smoothieId"));

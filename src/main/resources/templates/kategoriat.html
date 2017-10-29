@@ -11,14 +11,16 @@
         <ul>
             <li th:each="kategoria : ${kategoriat}">
                 <span th:text="${kategoria}"></span>
-                <a th:href="@{~/kategoria/poista/{id}(id=${kategoria.id})}">(poista)</a>
+                <form th:method="POST" th:action="@{~/kategoriat/poista/{id}(id=${kategoria.id})}">
+                    <input type="submit" value="poista" />
+                </form>
             </li>
         </ul>
         <br />
         <h2>Lisää kategoria</h2>
         <form method="POST" action="/kategoriat">
-                Nimi:<br/>
-                <input type="text" name="kategoria" autofocus="autofocus"/><br/>
+            Nimi:<br/>
+            <input type="text" name="kategoria" autofocus="autofocus"/><br/>
             <input type="submit" value="Lisää kategoria"/>
         </form>
         <br />
