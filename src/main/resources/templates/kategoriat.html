@@ -2,16 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Raaka-aine tyypit</title>
+        <title>Raaka-ainetyypit</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Raaka-aine tyypit</h1>
+        <h1>Raaka-ainetyypit</h1>
         <ul>
             <li th:each="kategoria : ${kategoriat}">
-                <span th:text="${kategoria}"></span>
-                <a th:href="@{~/kategoria/poista/{id}(id=${kategoria.id})}">(poista)</a>
+                <span th:text="${kategoria.nimi}"></span>
+                <form th:method="POST" th:action="@{~/kategoriat/poista/{id}(id=${kategoria.id})}">
+                    <input type="submit" value="poista" />
+                </form>
             </li>
         </ul>
         <br />

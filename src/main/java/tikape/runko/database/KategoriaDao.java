@@ -65,11 +65,11 @@ public class KategoriaDao implements Dao<Kategoria, Integer>{
     
     @Override
     public Kategoria saveOrUpdate(Kategoria object) throws SQLException {
-//        if (object.id == null) {
+        if (object.getId() == null) {
             return save(object);
-//        } else {
-//            return update(object);
-//        }
+        } else {
+            return update(object);
+        }
     }
 
     @Override
